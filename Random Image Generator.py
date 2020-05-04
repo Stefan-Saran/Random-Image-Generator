@@ -79,7 +79,7 @@ def createFolder(directory="images downloaded"):
             os.makedirs(directory)
         filename = f"{d2}" + '.jpg'
         img_data = requests.get(url).content
-        with open(os.path.join(directory, filename), 'a') as temp_file:
+        with open(os.path.join(directory, filename), 'wb') as temp_file:
             temp_file.write(raw_data2)
             App1.quit()
             subprocess.Popen(command)

@@ -1,26 +1,14 @@
-from PIL import Image
-from urllib import request
 import urllib
 from tkinter.ttk import *
 import tkinter as tk
 from tkinter import *
-import random
 from PIL import ImageTk, Image
 import os
-from io import BytesIO
 import requests
-import sys
 import io
-from time import sleep
-import datetime
-from datetime import date
 from tkinter.messagebox import showinfo
 from datetime import datetime
-from random import randrange
-from tkinter import ttk
 import subprocess
-import time
-from tkinter import messagebox
 
 App1 = tk.Tk()
 
@@ -91,7 +79,7 @@ def createFolder(directory="images downloaded"):
             os.makedirs(directory)
         filename = f"{d2}" + '.jpg'
         img_data = requests.get(url).content
-        with open(os.path.join(directory, filename), 'wb') as temp_file:
+        with open(os.path.join(directory, filename), 'a') as temp_file:
             temp_file.write(raw_data2)
             App1.quit()
             subprocess.Popen(command)

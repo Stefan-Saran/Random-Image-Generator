@@ -10,27 +10,27 @@ from tkinter.messagebox import showinfo
 from datetime import datetime
 import subprocess
 
-App1 = tk.Tk()
+Image_generator = tk.Tk()
 
 
-App1.geometry("520x500")
-App1.configure(bg='#1A1A1A')
-App1.title("Random Image Generator")
-button = tk.Button(App1, text="Download Image", width=13,
-                   height=1, state=DISABLED, command=lambda: createFolder())
-button.place(rely=0.82, relx=0.4)
+Image_generator.geometry("520x500")
+Image_generator.configure(bg='#1A1A1A')
+Image_generator.title("Random Image Generator")
+download_button = tk.Button(Image_generator, text="Download Image", width=13,
+                            height=1, state=DISABLED, command=lambda: createFolder())
+download_button.place(rely=0.82, relx=0.4)
 
-button2 = tk.Button(App1, text="About", width=11,
-                    height=1, command=lambda: popup_bonus2()).place(rely=0.05, relx=0.037)
+About_button = tk.Button(Image_generator, text="About", width=11,
+                         height=1, command=lambda: About_info()).place(rely=0.05, relx=0.037)
 
 
 url = "https://source.unsplash.com/random/1920x1080"
 
-file = "images/info.png"
-img = PhotoImage(file=file)
+image_file = "images/info.png"
+img = PhotoImage(file=image_file)
 img = img.zoom(1)
 img = img.subsample(1)
-raw_data2 = ""
+image_connection2 = ""
 
 file2 = "images/info2.png"
 img2 = PhotoImage(file=file2)
@@ -38,35 +38,35 @@ img2 = img2.zoom(1)
 img2 = img2.subsample(1)
 
 
-widget = tk.Label(App1, image=img)
+widget = tk.Label(Image_generator, image=img)
 widget.place(rely=0.16, relx=0.037)
 # while img == widget:
 #button['state'] = DISABLED
 
 
-def callback(e):
-    global raw_data2
+def binding(e):
+    global image_connection2
     try:
         with urllib.request.urlopen(url) as connection1:
-            raw_data1 = connection1.read()
-            raw_data2 = raw_data1
-        im = Image.open(io.BytesIO(raw_data2))
-        image2 = im.resize((480, 270), Image.ANTIALIAS)
-        image = ImageTk.PhotoImage(image2)
+            image_connection1 = connection1.read()
+            image_connection2 = image_connection1
+        image_reading = Image.open(io.BytesIO(image_connection2))
+        image_resizing = image_reading.resize((480, 270), Image.ANTIALIAS)
+        image = ImageTk.PhotoImage(image_resizing)
         widget.configure(image=image)
         widget.image = image
-        if (button['state'] == tk.DISABLED):
-            button['state'] = tk.NORMAL
+        if (download_button['state'] == tk.DISABLED):
+            download_button['state'] = tk.NORMAL
     except urllib.error.URLError:
         widget.configure(image=img2)
         widget.image = img2
-        button["state"] = tk.DISABLED
+        download_button["state"] = tk.DISABLED
 
 
-today1 = datetime.now()
-d2 = today1.strftime("%d.%m.%Y - %H.%M.%S")
+time_now = datetime.now()
+time_now_format = time_now.strftime("%d.%m.%Y - %H.%M.%S")
 
-command = '"{}" "{}" "{}"'.format(
+reopen_programm_format = '"{}" "{}" "{}"'.format(
     sys.executable,
     __file__,
     os.path.basename(__file__),
@@ -77,34 +77,34 @@ def createFolder(directory="images downloaded"):
     try:
         if not os.path.exists(directory):
             os.makedirs(directory)
-        filename = f"{d2}" + '.jpg'
+        filename = f"{time_now_format}" + '.jpg'
         img_data = requests.get(url).content
-        with open(os.path.join(directory, filename), 'wb') as temp_file:
-            temp_file.write(raw_data2)
-            App1.quit()
-            subprocess.Popen(command)
+        with open(os.path.join(directory, filename), 'wb') as saving_files:
+            saving_files.write(image_connection2)
+            Image_generator.quit()
+            subprocess.Popen(reopen_programm_format)
     except:
         showinfo("Error", "An error has occurred")
 
 
-def popup_bonus2():
-    a = "This is Random Image Generator"
-    bolded_string = "\033[1m" + a + "\033[0m"
-    root = Toplevel(background="#1A1A1A")
-    root.resizable(False, False)
-    large_font2 = ('Verdana', 13)
-    root.title("About")
-    w = 320     # popup window width
-    h = 400     # popup window height
-    sw = root.winfo_screenwidth()
-    sh = root.winfo_screenheight()
-    x = (sw - w)/2
-    y = (sh - h)/2
-    root.geometry('%dx%d+%d+%d' % (w, h, x, y))
-    m = f"""
+def About_info():
+    Title = "This is Random Image Generator"
+    bolded_text = "\033[1m" + Title + "\033[0m"
+    About_popup = Toplevel(background="#1A1A1A")
+    About_popup.resizable(False, False)
+    About_font = ('Verdana', 13)
+    About_popup.title("About")
+    width = 320     # popup window width
+    height = 400     # popup window height
+    screen_width = About_popup.winfo_screenwidth()
+    screen_height = About_popup.winfo_screenheight()
+    x = (screen_width - width)/2
+    y = (screen_height - height)/2
+    About_popup.geometry('%dx%d+%d+%d' % (width, height, x, y))
+    About_text = f"""
 
 
-|{a}|
+|{Title}|
 ---------------------------
 \nThis program uses images from\n unsplash.com \nand displays it\n
 ---------------------------
@@ -117,30 +117,30 @@ Creation date:
 April 13th. - May 4th. 2020
 ---------------------------
 """
-    m += '\n'
-    w = Label(root, text=m, width=120, height=18,
-              background="#1A1A1A", foreground="white", font=large_font2)
-    w.pack()
+    About_text += '\n'
+    width = Label(About_popup, text=About_text, width=120, height=18,
+                  background="#1A1A1A", foreground="white", font=About_font)
+    width.pack()
 
-    root.transient(App1)
-    root.grab_set()
-    root.wait_window(root)
-    root.mainloop()
+    About_popup.transient(Image_generator)
+    About_popup.grab_set()
+    About_popup.wait_window(About_popup)
+    About_popup.mainloop()
 
 
 def center_window(width=300, height=200):
     # get screen width and height
-    screen_width = App1.winfo_screenwidth()
-    screen_height = App1.winfo_screenheight()
+    screen_width = Image_generator.winfo_screenwidth()
+    screen_height = Image_generator.winfo_screenheight()
 
     # calculate position x and y coordinates
     x = (screen_width/2) - (width/2)
     y = (screen_height/2) - (height/2)
-    App1.geometry('%dx%d+%d+%d' % (width, height, x, y))
+    Image_generator.geometry('%dx%d+%d+%d' % (width, height, x, y))
 
 
-App1.bind("<Return>", callback)
+Image_generator.bind("<Return>", binding)
 
-App1.resizable(False, False)
+Image_generator.resizable(False, False)
 center_window(520, 500)
-App1.mainloop()
+Image_generator.mainloop()

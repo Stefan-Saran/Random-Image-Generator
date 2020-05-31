@@ -1,8 +1,6 @@
-modules = ["pip", "urllib", "tkinter", "PIL", "os",
-           "requests", "io", "messagebox", "datetime", "subprocess"]
+modules = ["pip", "requests", "datetime"]
 
 try:
-    import pip
     import urllib
     from tkinter.ttk import *
     import tkinter as tk

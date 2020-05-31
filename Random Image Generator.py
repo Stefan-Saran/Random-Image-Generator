@@ -1,17 +1,35 @@
-import urllib
-from tkinter.ttk import *
-import tkinter as tk
-from tkinter import *
-from PIL import ImageTk, Image
-import os
-import requests
-import io
-from tkinter.messagebox import showinfo
-from datetime import datetime
-import subprocess
+modules = ["pip", "urllib", "tkinter", "PIL", "os",
+           "requests", "io", "messagebox", "datetime", "subprocess"]
+
+try:
+    import pip
+    import urllib
+    from tkinter.ttk import *
+    import tkinter as tk
+    from tkinter import *
+    from PIL import ImageTk, Image
+    import os
+    import requests
+    import io
+    from tkinter.messagebox import showinfo
+    from datetime import datetime
+    import subprocess
+except ImportError:
+    import sys
+    import pip
+    import subprocess
+    module_installation_question = input(
+        "Some modules are missing, do you want to install all required modules for this project? yes or no.: ").lower()
+    if module_installation_question == "yes":
+        for module in modules:
+            subprocess.call(['pip', 'install', module])
+        print("Restart the editor and this project should work...")
+        sys.exit()
+    elif module_installation_question == "no":
+        print("This project won't work if one module is missing...")
+        sys.exit()
 
 Image_generator = tk.Tk()
-
 
 Image_generator.geometry("520x500")
 Image_generator.configure(bg='#1A1A1A')
@@ -102,8 +120,7 @@ def About_info():
     y = (screen_height - height)/2
     About_popup.geometry('%dx%d+%d+%d' % (width, height, x, y))
     About_text = f"""
-
-
+    \n
 |{Title}|
 ---------------------------
 \nThis program uses images from\n unsplash.com \nand displays it\n

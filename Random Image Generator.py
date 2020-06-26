@@ -40,7 +40,7 @@ About_button = tk.Button(Image_generator, text="About", width=11,
                          height=1, command=lambda: About_info()).place(rely=0.05, relx=0.037)
 
 
-url = "https://source.unsplash.com/random/1920x1080"
+url = "https://picsum.photos//1920/1080"
 
 image_file = "images/info.png"
 img = PhotoImage(file=image_file)
@@ -121,7 +121,7 @@ def About_info():
     \n
 |{Title}|
 ---------------------------
-\nThis program uses images from\n unsplash.com \nand displays it\n
+\nThis program uses images from\n www.picsum.photos \nand displays it\n
 ---------------------------
 Creator = Stefan Saran
 ---------------------------

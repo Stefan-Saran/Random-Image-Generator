@@ -10,7 +10,7 @@ This project is for everyone who likes exploring cool images.
 To Run this Application you just need python installed on your computer.
 
 The way this qui app works is:
-by clicking enter, python goes to this link "https://source.unsplash.com/random/1920x1080",
+by clicking enter, python goes to this link "https://picsum.photos//1920/1080",
 converts it to an image and displays it on a label, when pressing enter multiple times, the label will be updated with another image.
 
 Feel free to download.
